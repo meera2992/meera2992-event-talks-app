@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Talks 2026</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #ddd;
+            margin-bottom: 20px;
+        }
+        h1 {
+            margin: 0;
+            font-size: 2.5em;
+            color: #444;
+        }
+        #search-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #search {
+            padding: 10px;
+            width: 50%;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        .schedule {
+            list-style-type: none;
+            padding: 0;
+        }
+        .schedule-item {
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.3s ease;
+        }
+        .schedule-item:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .time {
+            font-weight: bold;
+            font-size: 1.1em;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .talk-details {
+            flex-grow: 1;
+        }
+        .talk-details h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.5em;
+            color: #007BFF;
+        }
+        .speakers {
+            font-style: italic;
+            margin-bottom: 10px;
+            color: #555;
+        }
+        .categories {
+            margin-bottom: 10px;
+        }
+        .category {
+            display: inline-block;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            margin-right: 5px;
+        }
+        .description {
+            line-height: 1.6;
+        }
+        .break {
+            background-color: #e9ecef;
+            text-align: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Tech Talks 2026</h1>
+        </header>
+
+        <div id="search-container">
+            <input type="text" id="search" placeholder="Search by category...">
+        </div>
+
+        <ul id="schedule-list" class="schedule"></ul>
+    </div>
+
+    <script>
+        const talks = [
+            {
+                title: "The Future of Artificial Intelligence",
+                speakers: ["Alex Doe"],
+                categories: ["AI", "Machine Learning"],
+                duration: 60,
+                description: "A deep dive into the latest advancements in AI and what we can expect in the next decade."
+            },
+            {
+                title: "Building Scalable Web Applications",
+                speakers: ["Jane Smith", "John Appleseed"],
+                categories: ["Web Development", "Scalability"],
+                duration: 60,
+                description: "Learn the best practices for designing and building web applications that can handle millions of users."
+            },
+            {
+                title: "Cybersecurity in a Post-Quantum World",
+                speakers: ["Sam Wilson"],
+                categories: ["Cybersecurity", "Quantum Computing"],
+                duration: 60,
+                description: "Exploring the threats and opportunities that quantum computing brings to the world of cybersecurity."
+            },
+            {
+                title: "The Rise of Serverless Architectures",
+                speakers: ["Emily White"],
+                categories: ["Serverless", "Cloud Computing"],
+                duration: 60,
+                description: "An introduction to serverless computing and how it is changing the way we build and deploy applications."
+            },
+            {
+                title: "Frontend Frameworks: A Comparative Analysis",
+                speakers: ["Chris Green", "Pat Blue"],
+                categories: ["Frontend", "Web Development"],
+                duration: 60,
+                description: "A comprehensive comparison of the most popular frontend frameworks: React, Vue, and Angular."
+            },
+            {
+                title: "DevOps and Continuous Delivery",
+                speakers: ["Maria Rodriguez"],
+                categories: ["DevOps", "CI/CD"],
+                duration: 60,
+                description: "Best practices and tools for implementing a successful DevOps and continuous delivery pipeline."
+            }
+        ];
+
+        const scheduleList = document.getElementById('schedule-list');
+        const searchInput = document.getElementById('search');
+
+        function formatTime(date) {
+            return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+        }
+
+        function renderSchedule(filter = '') {
+            scheduleList.innerHTML = '';
+            let currentTime = new Date();
+            currentTime.setHours(10, 0, 0, 0); 
+            let talkCounter = 0;
+
+            for (let i = 0; i < 7; i++) {
+                if (i === 3) {
+                    // Lunch Break
+                    const li = document.createElement('li');
+                    li.className = 'schedule-item break';
+                    const startTime = new Date(currentTime);
+                    currentTime.setMinutes(currentTime.getMinutes() + 60);
+                    const endTime = new Date(currentTime);
+                    li.innerHTML = `<div class="time">${formatTime(startTime)} - ${formatTime(endTime)}</div><div>Lunch Break</div>`;
+                    scheduleList.appendChild(li);
+                } else if (talkCounter < talks.length) {
+                    const talk = talks[talkCounter];
+
+                    const lowerCaseFilter = filter.toLowerCase();
+                    const categoriesMatch = talk.categories.some(cat => cat.toLowerCase().includes(lowerCaseFilter));
+
+                    if (filter === '' || categoriesMatch) {
+                        const li = document.createElement('li');
+                        li.className = 'schedule-item';
+
+                        const startTime = new Date(currentTime);
+                        currentTime.setMinutes(currentTime.getMinutes() + talk.duration);
+                        const endTime = new Date(currentTime);
+
+                        li.innerHTML = `
+                            <div class="time">${formatTime(startTime)} - ${formatTime(endTime)}</div>
+                            <div class="talk-details">
+                                <h3>${talk.title}</h3>
+                                <div class="speakers">By: ${talk.speakers.join(', ')}</div>
+                                <div class="categories">
+                                    ${talk.categories.map(cat => `<span class="category">${cat}</span>`).join('')}
+                                </div>
+                                <div class="description">${talk.description}</div>
+                            </div>
+                        `;
+                        scheduleList.appendChild(li);
+                    }
+                    talkCounter++;
+                    
+                    if (i < 6 && i !== 2) {
+                         // Add transition time if it's not the last talk or before lunch
+                        currentTime.setMinutes(currentTime.getMinutes() + 10);
+                    }
+                }
+            }
+        }
+        
+        searchInput.addEventListener('input', () => {
+            renderSchedule(searchInput.value);
+        });
+
+        renderSchedule();
+    </script>
+</body>
+</html>
