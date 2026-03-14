@@ -1,0 +1,130 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech Talks 2026</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+    #header {
+      background-color: #333;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    #search-container {
+      margin: 20px 0;
+      text-align: center;
+    }
+    #search-input {
+      padding: 10px;
+      width: 50%;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    #schedule-container {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .talk {
+      background-color: white;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .talk h2 {
+      margin-top: 0;
+    }
+    .talk .time {
+      font-weight: bold;
+      color: #333;
+    }
+    .talk .speakers {
+      font-style: italic;
+      color: #666;
+    }
+    .talk .category {
+      margin-top: 10px;
+    }
+    .talk .category span {
+      background-color: #eee;
+      padding: 5px 10px;
+      border-radius: 5px;
+      margin-right: 5px;
+      font-size: 0.9em;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="header">
+    <h1>Tech Talks 2026</h1>
+  </div>
+
+  <div id="search-container">
+    <input type="text" id="search-input" placeholder="Search by category...">
+  </div>
+
+  <div id="schedule-container"></div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const searchInput = document.getElementById('search-input');
+      const scheduleContainer = document.getElementById('schedule-container');
+      let talks = [];
+
+      fetch('talks.json')
+        .then(response => response.json())
+        .then(data => {
+          talks = data;
+          renderSchedule(talks);
+        });
+
+      searchInput.addEventListener('input', () => {
+        const searchTerm = searchInput.value.toLowerCase();
+        const filteredTalks = talks.filter(talk => {
+          return talk.category.some(category => category.toLowerCase().includes(searchTerm));
+        });
+        renderSchedule(filteredTalks);
+      });
+
+      function renderSchedule(talksToRender) {
+        scheduleContainer.innerHTML = '';
+        talksToRender.forEach(talk => {
+          const talkElement = document.createElement('div');
+          talkElement.classList.add('talk');
+
+          let speakersHtml = '';
+          if (talk.speakers.length > 0) {
+            speakersHtml = `<p class="speakers">by ${talk.speakers.join(', ')}</p>`;
+          }
+
+          let categoryHtml = '';
+          if (talk.category.length > 0) {
+            categoryHtml = `<div class="category">
+              ${talk.category.map(cat => `<span>${cat}</span>`).join('')}
+            </div>`;
+          }
+
+          talkElement.innerHTML = `
+            <p class="time">${talk.startTime} - ${talk.endTime}</p>
+            <h2>${talk.title}</h2>
+            ${speakersHtml}
+            <p>${talk.description}</p>
+            ${categoryHtml}
+          `;
+          scheduleContainer.appendChild(talkElement);
+        });
+      }
+    });
+  </script>
+
+</body>
+</html>

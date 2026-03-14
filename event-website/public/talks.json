@@ -1,0 +1,102 @@
+[
+  {
+    "title": "The Future of JavaScript Frameworks",
+    "speakers": [
+      "Jane Doe"
+    ],
+    "category": [
+      "JavaScript",
+      "Web Development"
+    ],
+    "duration": 60,
+    "description": "An in-depth look at the trends and future of popular JavaScript frameworks like React, Vue, and Angular.",
+    "startTime": "10:00 AM",
+    "endTime": "11:00 AM"
+  },
+  {
+    "title": "Building Scalable APIs with GraphQL",
+    "speakers": [
+      "John Smith"
+    ],
+    "category": [
+      "API",
+      "GraphQL",
+      "Backend"
+    ],
+    "duration": 60,
+    "description": "Learn how to design and build scalable and efficient APIs using GraphQL.",
+    "startTime": "11:10 AM",
+    "endTime": "12:10 PM"
+  },
+  {
+    "title": "AI-Powered User Experiences",
+    "speakers": [
+      "Emily White",
+      "David Green"
+    ],
+    "category": [
+      "AI",
+      "UX",
+      "Design"
+    ],
+    "duration": 60,
+    "description": "Discover how to leverage artificial intelligence to create personalized and engaging user experiences.",
+    "startTime": "12:20 PM",
+    "endTime": "01:20 PM"
+  },
+  {
+    "title": "Lunch Break",
+    "speakers": [],
+    "category": [],
+    "duration": 60,
+    "description": "Enjoy a delicious lunch and network with fellow attendees.",
+    "startTime": "01:30 PM",
+    "endTime": "02:30 PM"
+  },
+  {
+    "title": "The Rise of Serverless Computing",
+    "speakers": [
+      "Michael Brown"
+    ],
+    "category": [
+      "Serverless",
+      "Cloud",
+      "Architecture"
+    ],
+    "duration": 60,
+    "description": "A comprehensive guide to serverless architecture and its impact on modern application development.",
+    "startTime": "02:30 PM",
+    "endTime": "03:30 PM"
+  },
+  {
+    "title": "Cybersecurity in the Age of IoT",
+    "speakers": [
+      "Sarah Jones"
+    ],
+    "category": [
+      "Cybersecurity",
+      "IoT",
+      "Security"
+    ],
+    "duration": 60,
+    "description": "Exploring the security challenges and best practices for securing Internet of Things devices.",
+    "startTime": "03:40 PM",
+    "endTime": "04:40 PM"
+  },
+  {
+    "title": "Quantum Computing: The Next Frontier",
+    "speakers": [
+      "Peter Williams",
+      "Maria Garcia"
+    ],
+    "category": [
+      "Quantum Computing",
+      "Science",
+      "Technology"
+    ],
+    "duration": 60,
+    "description": "An introduction to the principles of quantum computing and its potential to revolutionize the tech industry.",
+    "startTime": "04:50 PM",
+    "endTime": "05:50 PM"
+  }
+]
